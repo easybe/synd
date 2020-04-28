@@ -1,0 +1,10 @@
+[Unit]
+Description=Tiny Synology DiskStation daemon
+
+[Service]
+Type=simple
+Restart=on-failure
+ExecStart=/usr/local/synd/synd.py
+
+[Install]
+WantedBy=multi-user.target
