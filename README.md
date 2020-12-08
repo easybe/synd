@@ -16,13 +16,17 @@ systemctl enable /usr/local/synd/synd.service
 systemctl start synd
 ```
 
-In order for the device to actually power off, I needed to enable the
-`qnap-poweroff` driver. For that I cross-compiled the kernel as follows using
+In order for the device to actually power off, we need to enable the
+`qnap-poweroff` driver. Also, to preserve the MAC addresses set by U-Boot, the
+`mvneta` driver must be compiled into the kernel.
+
+The Linux kernel I cross-compile as follows using
 [a Docker image](https://hub.docker.com/r/easybe/debian-armhf-build):
 ```
 apt source linux
 cd linux-*
 cp /path/to/old/config .config
+sed -i 's/CONFIG_MVNETA=m/CONFIG_MVNETA=y/' .config
 sed -i 's/.*CONFIG_POWER_RESET_QNAP.*/CONFIG_POWER_RESET_QNAP=y/' .config
 sed -i 's/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=""/' .config
 export ARCH=arm
