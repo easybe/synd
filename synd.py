@@ -17,6 +17,7 @@ UART_PORT = "/dev/ttyS1"
 POWER_BUTTON_PRESSED = b'0'
 CMD_LED_POWER_BLINK = b'5'
 CMD_LED_POWER_OFF = b'6'
+CMD_RCPOWERON = b'q'
 
 
 def sigterm_handler(_signo, _stack_frame):
@@ -36,6 +37,7 @@ if __name__ == '__main__':
     uart = Serial(UART_PORT, 9600, timeout=1)
     try:
         uart.write(CMD_LED_POWER_OFF)
+        uart.write(CMD_RCPOWERON)
         wait_for_button_press(uart)
     finally:
         if uart:
