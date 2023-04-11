@@ -2,7 +2,7 @@
 # Tiny Synology DiskStation daemon
 
 This very basic service was created for a Synology DiskStation DS214+ running
-Debian (Buster). It should also work on other Synology NAS products like the
+Debian (Bookworm). It should also work on other Synology NAS products like the
 DS414 or the DS207.
 
 The daemon will turn off the blinking LED at startup and shut the system down
@@ -32,7 +32,7 @@ sed -i 's/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=""/' .config
 export ARCH=arm
 export CROSS_COMPILE=arm-linux-gnueabihf-
 export LOCALVERSION=-armmp-lpae
-export KDEB_PKGVERSION=$(make kernelversion)-1
+export KDEB_PKGVERSION=$(make kernelversion)-1+custom
 make oldconfig
 make -j $(nproc) bindeb-pkg
 ```
